@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just Truck It Dispatching — Dispatch Services Mockup v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0B0D0C; --charcoal:#16181A; --charcoal-2:#1E2123;
+    --lime:#C6FF3D; --lime-dim:#9FD400; --white:#F6F6F2;
+    --steel:#8B918C; --steel-dark:#4C534E;
+    --display:'Oswald',sans-serif; --body:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body); background:var(--black); color:var(--white); line-height:1.5; -webkit-font-smoothing:antialiased;}
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--lime); display:inline-block; margin-bottom:16px;}
+  h1,h2,h3{font-family:var(--display); font-weight:700; text-transform:uppercase; letter-spacing:.01em; line-height:1.05;}
+  h1{font-size:clamp(36px,5vw,62px);}
+  h2{font-size:clamp(30px,4vw,46px);}
+  h3{font-size:20px; letter-spacing:.02em;}
+  p{color:var(--steel); font-size:16px; max-width:56ch;}
+  .section{padding:96px 8vw;}
+  .section-inner{max-width:1240px; margin:0 auto;}
+  .lane-divider{height:2px; width:100%; background-image:repeating-linear-gradient(90deg,var(--lime) 0 28px, transparent 28px 52px); opacity:.55;}
+
+  .btn{display:inline-flex; align-items:center; justify-content:center; font-family:var(--body); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; padding:16px 30px; border-radius:2px; cursor:pointer; transition:transform .15s ease, background .15s ease; border:2px solid transparent;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--lime); color:var(--black);}
+  .btn-primary:hover{background:var(--lime-dim);}
+  .btn-outline{border-color:var(--white); color:var(--white); background:transparent;}
+  .btn-outline:hover{border-color:var(--lime); color:var(--lime);}
+  .btn-outline-dark{border:2px solid var(--black); color:var(--black); background:transparent;}
+  .btn-outline-dark:hover{background:var(--black); color:var(--lime);}
+
+  header{position:sticky; top:0; z-index:50; background:rgba(11,13,12,.94); backdrop-filter:blur(6px); border-bottom:2px solid var(--lime);}
+  .nav-wrap{max-width:1320px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:18px 6vw;}
+  .logo{font-family:var(--display); font-weight:700; font-size:20px; letter-spacing:.02em; line-height:1;}
+  .logo span{display:block; color:var(--lime); font-size:11px; letter-spacing:.22em; font-family:var(--mono); font-weight:500; margin-top:3px;}
+  nav.main-nav ul{display:flex; gap:40px;}
+  nav.main-nav a{font-size:13.5px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--white); opacity:.8;}
+  nav.main-nav a:hover{opacity:1; color:var(--lime);}
+  nav.main-nav a.active{opacity:1; color:var(--lime);}
+  .header-right{display:flex; align-items:center; gap:26px;}
+  .phone{font-family:var(--mono); font-size:13.5px; color:var(--steel);}
+  .hamburger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none;}
+  .hamburger span{width:26px; height:2px; background:var(--white);}
+
+  /* HERO */
+  .hero{padding:96px 8vw 0; background: radial-gradient(ellipse at 85% -10%, rgba(198,255,61,.07), transparent 55%), var(--black);}
+  .hero-inner{max-width:1240px; margin:0 auto; padding-bottom:56px;}
+  .hero h1{max-width:20ch; margin-bottom:14px;}
+  .hero .subline{font-family:var(--mono); font-size:14px; letter-spacing:.03em; color:var(--lime); text-transform:uppercase; margin-bottom:22px; display:block;}
+  .hero p{font-size:17.5px; max-width:58ch; margin-bottom:32px;}
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
+
+  .ticker-bar{border-top:1px solid var(--charcoal-2); background:var(--charcoal); overflow:hidden; position:relative;}
+  .ticker-track{display:flex; width:max-content; animation:scroll-ticker 38s linear infinite;}
+  .ticker-item{display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:13px; letter-spacing:.05em; color:var(--steel); text-transform:uppercase; padding:14px 34px; border-right:1px solid var(--charcoal-2); white-space:nowrap;}
+  .ticker-item .dot{color:var(--lime); font-weight:600;}
+  @keyframes scroll-ticker{ 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+  @media (prefers-reduced-motion:reduce){ .ticker-track{animation:none;} }
+
+  /* SERVICES */
+  .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:48px; background:var(--charcoal-2);}
+  .service-item{background:var(--charcoal); padding:38px 32px;}
+  .service-item .icon{width:34px; height:34px; margin-bottom:18px;}
+  .service-item .icon svg{stroke:var(--lime); width:100%; height:100%;}
+  .service-item h3{font-size:16px; margin-bottom:10px;}
+  .service-item p{font-size:14px;}
+
+  /* PROCESS */
+  .process-strip{background:var(--charcoal);}
+  .process-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:56px; position:relative;}
+  .process-grid::before{content:""; position:absolute; top:19px; left:6%; right:6%; height:2px; background-image:repeating-linear-gradient(90deg,var(--lime) 0 16px, transparent 16px 30px); opacity:.5;}
+  .process-step{padding:0 20px; position:relative; text-align:left;}
+  .process-step .num{font-family:var(--mono); font-size:14px; color:var(--black); background:var(--lime); width:38px; height:38px; display:flex; align-items:center; justify-content:center; margin-bottom:22px; font-weight:600; position:relative; z-index:2;}
+  .process-step h3{font-size:16.5px; margin-bottom:8px;}
+  .process-step p{font-size:13.5px;}
+
+  /* WHY (light) */
+  .section-light{background:var(--white); color:var(--black);}
+  .section-light h2{color:var(--black);}
+  .section-light p{color:#4A4E4B;}
+  .why-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:start; margin-top:44px;}
+  .why-statement h3{font-size:clamp(26px,3vw,34px); color:var(--black); margin-bottom:18px;}
+  .fact-row{display:flex; flex-direction:column; gap:0;}
+  .fact-item{padding:20px 0; border-bottom:1px solid #DDDCD4;}
+  .fact-item:first-child{padding-top:0;}
+  .fact-item .fact-num{font-family:var(--display); font-size:26px; color:var(--black); display:block; margin-bottom:2px;}
+  .fact-item .fact-label{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:#6b8a00;}
+
+  /* FAQ */
+  .faq-list{margin-top:40px; border-top:1px solid #DDDCD4;}
+  .faq-item{border-bottom:1px solid #DDDCD4;}
+  .faq-item summary{list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; padding:24px 4px; font-family:var(--display); font-size:17px; text-transform:none; color:var(--black); letter-spacing:.005em; font-weight:600;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary .plus{font-family:var(--mono); font-size:20px; color:var(--black); transition:transform .15s ease;}
+  .faq-item[open] summary .plus{transform:rotate(45deg);}
+  .faq-answer{padding:0 4px 26px; max-width:70ch;}
+  .faq-answer p{font-size:15px; color:#4A4E4B;}
+
+  /* FINAL CTA */
+  .final-cta{background:var(--lime); color:var(--black); text-align:center; padding:100px 8vw;}
+  .final-cta h2{color:var(--black); margin-bottom:16px;}
+  .final-cta p{color:#2b2e2c; margin:0 auto 30px; font-size:17px;}
+  .final-cta-ctas{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+
+  /* FOOTER */
+  footer{background:var(--black); padding:80px 8vw 30px; border-top:1px solid var(--charcoal-2);}
+  .footer-grid{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:50px;}
+  .footer-brand .logo{margin-bottom:14px;}
+  .footer-brand p{font-size:14px; max-width:30ch;}
+  .footer-col h4{font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--lime); text-transform:uppercase; margin-bottom:18px;}
+  .footer-col ul li{margin-bottom:12px;}
+  .footer-col a{font-size:14px; color:var(--steel);}
+  .footer-col a:hover{color:var(--white);}
+  .footer-bottom{max-width:1240px; margin:0 auto; padding-top:26px; border-top:1px solid var(--charcoal-2); display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:12.5px; color:var(--steel-dark);}
+
+  @media (max-width:900px){
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .why-grid{grid-template-columns:1fr; gap:32px;}
+    .process-grid{grid-template-columns:repeat(2,1fr); row-gap:40px;}
+    .process-grid::before{display:none;}
+    .footer-grid{grid-template-columns:1fr 1fr; row-gap:36px;}
+  }
+  @media (max-width:640px){
+    .section{padding:64px 6vw;}
+    nav.main-nav, .phone{display:none;}
+    .hamburger{display:flex;}
+    .hero{padding:56px 6vw 0;}
+    .hero-ctas .btn{width:100%;}
+    .services-grid{grid-template-columns:1fr;}
+    .process-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .final-cta-ctas{flex-direction:column;}
+    .final-cta-ctas .btn{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo">JUST TRUCK IT<span>DISPATCHING</span></div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#" class="active">Dispatch Services</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Dispatch Academy</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-right">
+      <span class="phone">912-546-1923</span>
+      <a href="#" class="btn btn-primary" style="padding:12px 22px; font-size:13px;">Get Started</a>
+    </div>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Dispatch Services</span>
+    <h1>Dispatch Support For Owner-Operators &amp; Small Carriers</h1>
+    <span class="subline">Load Searching · Rate Negotiation · Broker Communication</span>
+    <p>Just Truck It helps you find loads, negotiate rates, communicate with brokers, manage paperwork, and plan freight around your preferences — so you can spend more time behind the wheel.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary">Get Started</a>
+      <a href="#" class="btn btn-outline">Book a Free Consultation</a>
+    </div>
+  </div>
+  <div class="ticker-bar">
+    <div class="ticker-track">
+      <div class="ticker-item"><span class="dot">●</span> Load Searching</div>
+      <div class="ticker-item"><span class="dot">●</span> Rate Negotiation</div>
+      <div class="ticker-item"><span class="dot">●</span> Broker Communication</div>
+      <div class="ticker-item"><span class="dot">●</span> Route Planning</div>
+      <div class="ticker-item"><span class="dot">●</span> Paperwork Support</div>
+      <div class="ticker-item"><span class="dot">●</span> Personalized Dispatch</div>
+      <div class="ticker-item"><span class="dot">●</span> Load Searching</div>
+      <div class="ticker-item"><span class="dot">●</span> Rate Negotiation</div>
+      <div class="ticker-item"><span class="dot">●</span> Broker Communication</div>
+      <div class="ticker-item"><span class="dot">●</span> Route Planning</div>
+      <div class="ticker-item"><span class="dot">●</span> Paperwork Support</div>
+      <div class="ticker-item"><span class="dot">●</span> Personalized Dispatch</div>
+    </div>
+  </div>
+</section>
+
+<!-- DISPATCH SERVICES -->
+<section class="section">
+  <div class="section-inner">
+    <span class="eyebrow">Dispatch Services</span>
+    <h2>What Just Truck It Handles</h2>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 6l2 13h12l2-13"/><path d="M9 10v5M15 10v5"/></svg></div>
+        <h3>Load Searching &amp; Booking</h3>
+        <p>We search available loads that match your equipment and preferred lanes, then handle the booking process.</p>
+      </div>
+      <div class="service-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M3 12h13M12 5l7 7-7 7"/></svg></div>
+        <h3>Rate Negotiation</h3>
+        <p>We negotiate rates directly with brokers on your behalf before a load is confirmed.</p>
+      </div>
+      <div class="service-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4l4 1 2 5-3 2c1 3 3 5 6 6l2-3 5 2 1 4c-6 1-11-1-14-4S3 10 4 4z"/></svg></div>
+        <h3>Broker Communication</h3>
+        <p>We communicate with brokers throughout the load process so you can spend less time on the phone.</p>
+      </div>
+      <div class="service-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M6 3h9l5 5v13H6z"/><path d="M9 12h6M9 16h6"/></svg></div>
+        <h3>Paperwork Assistance</h3>
+        <p>We help keep your rate confirmations, load documents, and related paperwork organized.</p>
+      </div>
+      <div class="service-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M5 8l7-5 7 5M5 16l7 5 7-5"/></svg></div>
+        <h3>Route &amp; Load Planning</h3>
+        <p>We help plan routes and loads around your preferences and business needs.</p>
+      </div>
+      <div class="service-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg></div>
+        <h3>Personalized Dispatch Support</h3>
+        <p>We work with you based on your preferences, lanes, equipment, and business goals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section process-strip">
+  <div class="section-inner">
+    <span class="eyebrow">How It Works</span>
+    <h2>Getting Started With Dispatch</h2>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="num">01</div>
+        <h3>Sign Up</h3>
+        <p>You provide basic business, equipment, lane, and dispatching information.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">02</div>
+        <h3>Complete Onboarding</h3>
+        <p>We complete your consultation, dispatch agreement, required documents, and authority/insurance verification.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">03</div>
+        <h3>We Search &amp; Negotiate</h3>
+        <p>We search for loads based on your preferences, evaluate load details, and negotiate with brokers.</p>
+      </div>
+      <div class="process-step">
+        <div class="num">04</div>
+        <h3>You Approve. We Dispatch.</h3>
+        <p>You make the final decision on every load. Once approved, we help coordinate the dispatch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lane-divider"></div>
+
+<!-- WHY JUST TRUCK IT -->
+<section class="section section-light">
+  <div class="section-inner">
+    <span class="eyebrow" style="color:#6b8a00;">Why Just Truck It</span>
+    <h2>No Forced Dispatch</h2>
+    <div class="why-grid">
+      <div class="why-statement">
+        <h3>You make the final decision on every load.</h3>
+        <p>Just Truck It works around your equipment, preferred lanes, rate expectations, home-time needs, and business preferences — the choice of what to run is always yours.</p>
+      </div>
+      <div class="fact-row">
+        <div class="fact-item"><span class="fact-num">Nationwide</span><span class="fact-label">Dispatch Support</span></div>
+        <div class="fact-item"><span class="fact-num">10%</span><span class="fact-label">Per Load</span></div>
+        <div class="fact-item"><span class="fact-num">You Decide</span><span class="fact-label">Final Approval On Every Load</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-light">
+  <div class="section-inner">
+    <span class="eyebrow" style="color:#6b8a00;">FAQ</span>
+    <h2>Common Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>How much does dispatch service cost?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>Just Truck It charges 10% of the load revenue, according to the dispatch agreement.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Where do you provide dispatch services?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>Nationwide.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What equipment do you dispatch?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>Dry Van, Reefer, Flatbed, Box Truck, Hotshot, and Power Only.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Do I have to accept every load?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>No. There is no forced dispatch. You make the final decision on every load.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I get started?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>Start with our sign-up and onboarding process. Just Truck It also offers a free 15-minute carrier consultation to talk through what you're looking for.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Ready For Dispatch Support?</h2>
+  <p>Start with a free 15-minute consultation and tell us what you're looking for in your next loads.</p>
+  <div class="final-cta-ctas">
+    <a href="#" class="btn btn-primary">Get Started</a>
+    <a href="#" class="btn btn-outline-dark">Book a Free Consultation</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">JUST TRUCK IT<span>DISPATCHING</span></div>
+      <p>You Haul It. We Handle It. Just Truck It.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Dispatch Services</h4>
+      <ul><li><a href="#">Dispatch Services</a></li><li><a href="#">Carrier Sign-Up</a></li><li><a href="#">Book a Consultation</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Dispatch Academy</h4>
+      <ul><li><a href="#">Dispatch Academy</a></li><li><a href="#">Enrollment</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Just Truck It Dispatching. All rights reserved.</span>
+    <span>912-546-1923 · justtruckitdispatch@gmail.com</span>
+  </div>
+</footer>
+
+</body>
+</html>

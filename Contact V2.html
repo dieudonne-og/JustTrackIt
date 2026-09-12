@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just Truck It — Contact Page Mockup v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0B0D0C; --charcoal:#16181A; --charcoal-2:#1E2123;
+    --lime:#C6FF3D; --lime-dim:#9FD400; --white:#F6F6F2;
+    --steel:#8B918C; --steel-dark:#4C534E;
+    --display:'Oswald',sans-serif; --body:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body); background:var(--black); color:var(--white); line-height:1.5; -webkit-font-smoothing:antialiased;}
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  button, input, select, textarea{font-family:inherit;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--lime); display:inline-block; margin-bottom:14px;}
+  h1,h2,h3{font-family:var(--display); font-weight:700; text-transform:uppercase; letter-spacing:.01em; line-height:1.05;}
+  p{color:var(--steel); font-size:16px; max-width:56ch;}
+  .section{padding:80px 8vw;}
+  .section-inner{max-width:1240px; margin:0 auto;}
+  .lane-divider{height:2px; width:100%; background-image:repeating-linear-gradient(90deg,var(--lime) 0 28px, transparent 28px 52px); opacity:.55;}
+
+  .btn{display:inline-flex; align-items:center; gap:10px; font-family:var(--body); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; padding:16px 30px; border-radius:2px; cursor:pointer; transition:transform .15s ease, background .15s ease, gap .15s ease; border:2px solid transparent;}
+  .btn:hover{transform:translateY(-2px); gap:16px;}
+  .btn-primary{background:var(--lime); color:var(--black);}
+  .btn-primary:hover{background:var(--lime-dim);}
+  .btn-outline{border-color:var(--white); color:var(--white); background:transparent;}
+  .btn-outline:hover{border-color:var(--lime); color:var(--lime);}
+
+  header{position:sticky; top:0; z-index:50; background:rgba(11,13,12,.94); backdrop-filter:blur(6px); border-bottom:2px solid var(--lime);}
+  .nav-wrap{max-width:1320px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:18px 6vw;}
+  .logo{font-family:var(--display); font-weight:700; font-size:20px; letter-spacing:.02em; line-height:1;}
+  .logo span{display:block; color:var(--lime); font-size:11px; letter-spacing:.22em; font-family:var(--mono); font-weight:500; margin-top:3px;}
+  nav.main-nav ul{display:flex; gap:40px;}
+  nav.main-nav a{font-size:13.5px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--white); opacity:.8;}
+  nav.main-nav a:hover{opacity:1; color:var(--lime);}
+  nav.main-nav a.active{opacity:1; color:var(--lime);}
+  .header-right{display:flex; align-items:center; gap:26px;}
+  .phone{font-family:var(--mono); font-size:13.5px; color:var(--steel);}
+  .hamburger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none;}
+  .hamburger span{width:26px; height:2px; background:var(--white);}
+
+  /* HERO */
+  .hero{padding:88px 8vw 56px; text-align:center; background:radial-gradient(ellipse at 50% -10%, rgba(198,255,61,.06), transparent 55%), var(--black);}
+  .hero-inner{max-width:680px; margin:0 auto;}
+  .hero h1{font-size:clamp(30px,4.2vw,50px); margin-bottom:16px;}
+  .hero p{font-size:16.5px; margin:0 auto;}
+
+  /* ROUTING CARDS */
+  .routing{padding:0 8vw 0;}
+  .routing-grid{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .route-card{
+    background:var(--charcoal-2); border:1px solid var(--charcoal-2); border-top:3px solid var(--charcoal-2);
+    padding:36px 30px; cursor:pointer; transition:border-color .2s ease, background .2s ease, transform .15s ease;
+    text-align:left;
+  }
+  .route-card:hover{transform:translateY(-3px); border-color:var(--steel-dark);}
+  .route-card.active{border-top-color:var(--lime); background:#212428;}
+  .route-card .eyebrow{margin-bottom:12px;}
+  .route-card h2{font-size:20px; margin-bottom:14px; letter-spacing:.01em;}
+  .route-card p{font-size:14px; margin-bottom:22px;}
+  .route-cta{font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--lime); display:inline-flex; align-items:center; gap:8px; transition:gap .15s ease;}
+  .route-card:hover .route-cta{gap:14px;}
+
+  /* FORM PANEL */
+  .form-panel-wrap{max-width:1240px; margin:0 auto; padding:0 8vw;}
+  .form-panel{
+    max-height:0; overflow:hidden; opacity:0; transition:max-height .35s ease, opacity .3s ease, margin .35s ease;
+    margin-top:0;
+  }
+  .form-panel.open{max-height:2400px; opacity:1; margin-top:36px;}
+  .form-card{
+    background:var(--charcoal); border-left:4px solid var(--lime); padding:44px 6vw 48px;
+  }
+  .form-card-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:8px;}
+  .form-card-head h3{font-size:22px;}
+  .form-close{font-family:var(--mono); font-size:12px; color:var(--steel); cursor:pointer; letter-spacing:.05em; text-transform:uppercase;}
+  .form-close:hover{color:var(--lime);}
+  .form-note{
+    font-size:13.5px; color:var(--steel); border:1px dashed var(--charcoal-2); padding:14px 18px; margin:20px 0 28px; max-width:none;
+  }
+  .fact-strip{display:flex; flex-wrap:wrap; gap:10px; margin:20px 0 28px;}
+  .fact-strip span{font-family:var(--mono); font-size:11px; letter-spacing:.03em; text-transform:uppercase; color:var(--white); border:1px solid var(--charcoal-2); padding:8px 12px;}
+
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .form-grid .full{grid-column:1 / -1;}
+  .field label{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--steel); margin-bottom:8px;}
+  .field input, .field select, .field textarea{
+    width:100%; background:var(--black); border:1px solid var(--charcoal-2); color:var(--white);
+    padding:13px 14px; font-size:14.5px; font-family:var(--body); outline:none; transition:border-color .15s ease;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--lime);}
+  .field textarea{resize:vertical; min-height:90px;}
+  .field select{appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B918C' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; background-size:16px;}
+
+  .form-actions{margin-top:30px; display:flex; flex-wrap:wrap; align-items:center; gap:20px;}
+  .proto-note{font-family:var(--mono); font-size:11.5px; color:var(--steel-dark); max-width:none;}
+  .secondary-consult{
+    margin-top:28px; padding-top:26px; border-top:1px solid var(--charcoal-2);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+  }
+  .secondary-consult p{font-size:14px; margin:0;}
+
+  .confirm-msg{display:none; margin-top:18px; font-size:13.5px; color:var(--lime); font-family:var(--mono);}
+  .confirm-msg.show{display:block;}
+
+  /* CONTACT STRIP */
+  .contact-strip{
+    max-width:1240px; margin:64px auto 0; padding:8vw; padding-top:40px; padding-bottom:40px;
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:36px;
+    text-align:center; border-top:1px solid var(--charcoal-2); border-bottom:1px solid var(--charcoal-2);
+  }
+  .contact-strip .item{font-family:var(--mono); font-size:13.5px; color:var(--steel); letter-spacing:.02em;}
+  .contact-strip .item b{color:var(--white); font-weight:600;}
+
+  /* FOOTER */
+  footer{background:var(--black); padding:80px 8vw 30px;}
+  .footer-grid{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:50px;}
+  .footer-brand .logo{margin-bottom:14px;}
+  .footer-brand p{font-size:14px; max-width:30ch;}
+  .footer-col h4{font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--lime); text-transform:uppercase; margin-bottom:18px;}
+  .footer-col ul li{margin-bottom:12px;}
+  .footer-col a{font-size:14px; color:var(--steel);}
+  .footer-col a:hover{color:var(--white);}
+  .footer-bottom{max-width:1240px; margin:0 auto; padding-top:26px; border-top:1px solid var(--charcoal-2); display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:12.5px; color:var(--steel-dark);}
+
+  @media (max-width:900px){
+    .routing-grid{grid-template-columns:1fr;}
+    .form-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr; row-gap:36px;}
+  }
+  @media (max-width:640px){
+    nav.main-nav, .phone{display:none;}
+    .hamburger{display:flex;}
+    .hero{padding:56px 6vw 40px;}
+    .form-card{padding:32px 6vw 36px;}
+    .contact-strip{gap:18px; padding:36px 6vw;}
+    .secondary-consult{flex-direction:column; align-items:flex-start;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo">JUST TRUCK IT<span>DISPATCHING</span></div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Dispatch Services</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Dispatch Academy</a></li>
+        <li><a href="#" class="active">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-right">
+      <span class="phone">912-546-1923</span>
+      <a href="#" class="btn btn-primary" style="padding:12px 22px; font-size:13px;">Get Started</a>
+    </div>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Let's Connect</span>
+    <h1>What Can We Help You With?</h1>
+    <p style="margin:0 auto;">Choose the option that fits what you need and we'll get you to the right place.</p>
+  </div>
+</section>
+
+<!-- ROUTING CARDS -->
+<section class="routing">
+  <div class="routing-grid">
+    <div class="route-card" data-form="carrier">
+      <span class="eyebrow">For Carriers</span>
+      <h2>I Need Dispatch Support</h2>
+      <p>Tell us about your business, equipment, and dispatching needs so we can help you get started.</p>
+      <span class="route-cta">Start Carrier Inquiry →</span>
+    </div>
+    <div class="route-card" data-form="academy">
+      <span class="eyebrow">For Students</span>
+      <h2>I Have An Academy Question</h2>
+      <p>Have a question about Just Truck It Dispatch Academy, enrollment, tuition, or course access?</p>
+      <span class="route-cta">Ask About The Academy →</span>
+    </div>
+    <div class="route-card" data-form="general">
+      <span class="eyebrow">General</span>
+      <h2>Something Else</h2>
+      <p>For partnerships, general questions, or anything that doesn't fit the options above.</p>
+      <span class="route-cta">Send A Message →</span>
+    </div>
+  </div>
+
+  <!-- FORM PANEL -->
+  <div class="form-panel-wrap">
+    <div class="form-panel" id="panel-carrier">
+      <div class="form-card">
+        <div class="form-card-head">
+          <h3>Carrier Inquiry</h3>
+          <span class="form-close" data-close>Close ✕</span>
+        </div>
+        <p>Tell us about your business, equipment, and dispatching needs.</p>
+        <div class="form-note">Just Truck It provides nationwide dispatch support. Dispatch services are 10% per load. Carriers make the final decision on every load.</div>
+        <form onsubmit="return false;">
+          <div class="form-grid">
+            <div class="field"><label>Name</label><input type="text" placeholder="Full name"></div>
+            <div class="field"><label>Company / Legal Business Name</label><input type="text"></div>
+            <div class="field"><label>Phone</label><input type="tel"></div>
+            <div class="field"><label>Email</label><input type="email"></div>
+            <div class="field"><label>MC Number</label><input type="text"></div>
+            <div class="field"><label>USDOT Number</label><input type="text"></div>
+            <div class="field">
+              <label>Equipment Type</label>
+              <select>
+                <option value="">Select equipment type</option>
+                <option>Dry Van</option>
+                <option>Reefer</option>
+                <option>Flatbed</option>
+                <option>Box Truck</option>
+                <option>Hotshot</option>
+                <option>Power Only</option>
+              </select>
+            </div>
+            <div class="field"><label>Home Base</label><input type="text" placeholder="City, State"></div>
+            <div class="field"><label>Preferred States / Lanes</label><input type="text"></div>
+            <div class="field"><label>Number of Trucks</label><input type="number" min="1"></div>
+            <div class="field"><label>Minimum Rate / Rate Preference</label><input type="text"></div>
+            <div class="field"><label>Maximum Deadhead</label><input type="text"></div>
+            <div class="field"><label>Availability</label><input type="text" placeholder="e.g. Available now"></div>
+            <div class="field full"><label>Anything Else We Should Know?</label><textarea></textarea></div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" data-confirm="confirm-carrier">Submit Carrier Inquiry</button>
+            <span class="proto-note">Prototype only — this form is not yet connected.</span>
+          </div>
+          <div class="confirm-msg" id="confirm-carrier">This is a visual prototype. Form submission will be connected during the Squarespace build.</div>
+        </form>
+        <div class="secondary-consult">
+          <p>Prefer to talk first? Book a free 15-minute consultation.</p>
+          <a href="#" class="btn btn-outline">Book a Free Consultation →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-panel" id="panel-academy">
+      <div class="form-card">
+        <div class="form-card-head">
+          <h3>Academy Question</h3>
+          <span class="form-close" data-close>Close ✕</span>
+        </div>
+        <p>Ask us anything about the Dispatch Academy program.</p>
+        <div class="fact-strip">
+          <span>Online Training</span><span>15 Modules</span><span>$350 Tuition</span><span>45-Question Final Assessment</span><span>80% Passing Score</span>
+        </div>
+        <form onsubmit="return false;">
+          <div class="form-grid">
+            <div class="field"><label>Name</label><input type="text"></div>
+            <div class="field"><label>Email</label><input type="email"></div>
+            <div class="field"><label>Phone</label><input type="tel"></div>
+            <div class="field">
+              <label>What Can We Help You With?</label>
+              <select>
+                <option value="">Select a topic</option>
+                <option>Enrollment</option>
+                <option>Tuition</option>
+                <option>Course Access</option>
+                <option>Curriculum</option>
+                <option>Final Assessment</option>
+                <option>Certificate of Completion</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field full"><label>Your Question</label><textarea placeholder="How can we help?"></textarea></div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" data-confirm="confirm-academy">Send Academy Question</button>
+            <span class="proto-note">Prototype only — this form is not yet connected.</span>
+          </div>
+          <div class="confirm-msg" id="confirm-academy">This is a visual prototype. Form submission will be connected during the Squarespace build.</div>
+        </form>
+      </div>
+    </div>
+
+    <div class="form-panel" id="panel-general">
+      <div class="form-card">
+        <div class="form-card-head">
+          <h3>General Message</h3>
+          <span class="form-close" data-close>Close ✕</span>
+        </div>
+        <p>For partnerships, general questions, or anything else.</p>
+        <form onsubmit="return false;">
+          <div class="form-grid">
+            <div class="field"><label>Name</label><input type="text"></div>
+            <div class="field"><label>Email</label><input type="email"></div>
+            <div class="field"><label>Phone</label><input type="tel"></div>
+            <div class="field"><label>Subject</label><input type="text"></div>
+            <div class="field full"><label>Message</label><textarea></textarea></div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" data-confirm="confirm-general">Send Message</button>
+            <span class="proto-note">Prototype only — this form is not yet connected.</span>
+          </div>
+          <div class="confirm-msg" id="confirm-general">This is a visual prototype. Form submission will be connected during the Squarespace build.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip">
+    <span class="item"><b>912-546-1923</b></span>
+    <span class="item"><b>justtruckitdispatch@gmail.com</b></span>
+    <span class="item">Monday–Friday · 7:00 AM–6:00 PM</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">JUST TRUCK IT<span>DISPATCHING</span></div>
+      <p>You Haul It. We Handle It. Just Truck It.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Dispatch Services</h4>
+      <ul><li><a href="#">Dispatch Services</a></li><li><a href="#">Carrier Sign-Up</a></li><li><a href="#">Book a Consultation</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Dispatch Academy</h4>
+      <ul><li><a href="#">Dispatch Academy</a></li><li><a href="#">Enrollment</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Just Truck It Dispatching. All rights reserved.</span>
+    <span>912-546-1923 · justtruckitdispatch@gmail.com</span>
+  </div>
+</footer>
+
+<script>
+  const cards = document.querySelectorAll('.route-card');
+  const panels = { carrier: document.getElementById('panel-carrier'), academy: document.getElementById('panel-academy'), general: document.getElementById('panel-general') };
+
+  function closeAll(){
+    cards.forEach(c => c.classList.remove('active'));
+    Object.values(panels).forEach(p => p.classList.remove('open'));
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const key = card.dataset.form;
+      const alreadyActive = card.classList.contains('active');
+      closeAll();
+      if (!alreadyActive) {
+        card.classList.add('active');
+        panels[key].classList.add('open');
+        setTimeout(() => {
+          panels[key].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 120);
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', () => closeAll());
+  });
+
+  document.querySelectorAll('[data-confirm]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const msg = document.getElementById(btn.dataset.confirm);
+      if (msg) msg.classList.add('show');
+    });
+  });
+</script>
+
+</body>
+</html>

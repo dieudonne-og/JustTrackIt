@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dispatch Academy — Module 01 Interactive Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0B0D0C; --charcoal:#16181A; --charcoal-2:#1E2123;
+    --lime:#C6FF3D; --lime-dim:#9FD400; --white:#F6F6F2;
+    --steel:#8B918C; --steel-dark:#4C534E;
+    --display:'Oswald',sans-serif; --body:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:var(--body); background:var(--black); color:var(--white); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--display); font-weight:700; text-transform:uppercase; letter-spacing:.01em; line-height:1.1;}
+  p{color:var(--steel); font-size:16px; max-width:66ch;}
+  a{color:inherit;}
+  button{font-family:inherit; cursor:pointer;}
+
+  .demo-tag{
+    background:#2a2410; color:#e8b93a; font-family:var(--mono); font-size:12px; letter-spacing:.04em;
+    text-align:center; padding:10px 16px; border-bottom:1px solid var(--charcoal-2);
+  }
+
+  /* TOP PROGRESS BAR */
+  .course-header{background:var(--charcoal); border-bottom:2px solid var(--lime); padding:16px 5vw;}
+  .course-header-inner{max-width:1240px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;}
+  .course-title{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--steel);}
+  .course-title b{color:var(--lime);}
+  .progress-dots{display:flex; gap:6px; flex-wrap:wrap;}
+  .progress-dots .dot{width:9px; height:9px; border-radius:50%; background:var(--charcoal-2); border:1px solid var(--steel-dark);}
+  .progress-dots .dot.done{background:var(--lime); border-color:var(--lime);}
+  .progress-dots .dot.current{background:var(--lime); border-color:var(--lime); box-shadow:0 0 0 3px rgba(198,255,61,.25);}
+
+  /* LAYOUT */
+  .layout{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:260px 1fr; gap:56px; padding:48px 5vw 100px;}
+  .sidebar{position:sticky; top:24px; align-self:start;}
+  .sidebar h4{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--lime); text-transform:uppercase; margin-bottom:16px;}
+  .module-nav{display:flex; flex-direction:column; gap:2px;}
+  .module-nav .item{
+    display:flex; align-items:center; gap:12px; padding:11px 12px; font-size:13px; color:var(--steel-dark);
+    border-left:2px solid transparent;
+  }
+  .module-nav .item.active{color:var(--white); background:var(--charcoal-2); border-left-color:var(--lime); font-weight:600;}
+  .module-nav .item .num{font-family:var(--mono); font-size:11px; width:20px; flex:none;}
+  .module-nav .item .lock{margin-left:auto; font-size:11px; opacity:.5;}
+
+  /* MAIN CONTENT */
+  .lesson h2.mod-title{font-size:clamp(26px,3vw,38px); margin-bottom:12px;}
+  .lesson .mod-eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--lime); text-transform:uppercase; margin-bottom:14px; display:block;}
+  .lesson-intro{font-size:17px; margin-bottom:44px;}
+
+  .lesson-section{margin-bottom:52px;}
+  .lesson-section h3{font-size:13px; letter-spacing:.12em; color:var(--lime); font-family:var(--mono); text-transform:uppercase; margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid var(--charcoal-2);}
+
+  /* What You'll Learn — interactive checklist */
+  .checklist{display:flex; flex-direction:column; gap:0;}
+  .check-item{display:flex; align-items:flex-start; gap:14px; padding:13px 0; border-bottom:1px solid var(--charcoal-2); cursor:pointer;}
+  .check-item:last-child{border-bottom:none;}
+  .check-item .box{
+    width:20px; height:20px; border:1px solid var(--steel-dark); flex:none; margin-top:2px;
+    display:flex; align-items:center; justify-content:center; transition:background .15s ease, border-color .15s ease;
+  }
+  .check-item.checked .box{background:var(--lime); border-color:var(--lime);}
+  .check-item .box svg{width:12px; height:12px; stroke:var(--black); opacity:0;}
+  .check-item.checked .box svg{opacity:1;}
+  .check-item span.label{font-size:15px; color:var(--white); transition:color .15s ease;}
+  .check-item.checked span.label{color:var(--steel);}
+
+  /* Lesson subsections */
+  .sub-block{margin-bottom:28px;}
+  .sub-block h4{font-size:18px; margin-bottom:10px; letter-spacing:.01em;}
+  .sub-block p{font-size:15.5px;}
+
+  /* Key takeaways */
+  .takeaway-list{border-left:3px solid var(--lime); padding-left:20px;}
+  .takeaway-list li{list-style:none; font-size:15px; color:var(--white); margin-bottom:12px;}
+  .takeaway-list li::before{content:"— "; color:var(--lime);}
+
+  /* Real world callout */
+  .callout{background:var(--charcoal); border-left:3px solid var(--lime); padding:22px 26px;}
+  .callout p{font-size:15px; color:var(--white); margin:0; max-width:none;}
+
+  /* Practice */
+  .practice-box{background:var(--charcoal-2); padding:26px 28px;}
+  .practice-box ol{padding-left:20px; color:var(--white); font-size:15px;}
+  .practice-box li{margin-bottom:10px;}
+
+  /* Check your understanding */
+  .cyu-list{counter-reset:cyu; display:flex; flex-direction:column; gap:14px;}
+  .cyu-item{
+    counter-increment:cyu; background:var(--charcoal); border:1px solid var(--charcoal-2); padding:18px 20px;
+    display:flex; gap:14px; align-items:flex-start;
+  }
+  .cyu-item .qnum{font-family:var(--mono); color:var(--lime); font-size:14px; flex:none;}
+  .cyu-item p{font-size:15px; color:var(--white); margin:0;}
+
+  /* Self-check */
+  .selfcheck-box{background:var(--charcoal-2); padding:24px 26px;}
+  .selfcheck-box p{font-size:15px; margin-bottom:16px;}
+  .reveal-btn{
+    background:transparent; border:1px solid var(--lime); color:var(--lime); font-size:13px; font-weight:700;
+    text-transform:uppercase; letter-spacing:.04em; padding:12px 20px;
+  }
+  .reveal-btn:hover{background:var(--lime); color:var(--black);}
+  .reflection-area{display:none; margin-top:18px;}
+  .reflection-area.open{display:block;}
+  .reflection-area textarea{
+    width:100%; min-height:90px; background:var(--black); border:1px solid var(--charcoal-2); color:var(--white);
+    padding:14px; font-family:var(--body); font-size:14.5px; resize:vertical;
+  }
+  .reflection-note{font-family:var(--mono); font-size:11px; color:var(--steel-dark); margin-top:8px;}
+
+  /* Module complete */
+  .complete-box{
+    text-align:center; background:var(--lime); color:var(--black); padding:44px 30px; margin-top:20px;
+  }
+  .complete-box h3{font-size:22px; margin-bottom:10px; color:var(--black);}
+  .complete-box p{color:#2b2e2c; margin:0 auto 22px;}
+  .continue-btn{
+    background:var(--black); color:var(--lime); border:none; padding:15px 28px; font-weight:700; font-size:13.5px;
+    letter-spacing:.04em; text-transform:uppercase; display:inline-flex; align-items:center; gap:10px;
+  }
+  .continue-btn:hover{background:var(--charcoal-2);}
+
+  @media (max-width:900px){
+    .layout{grid-template-columns:1fr; padding:32px 6vw 80px;}
+    .sidebar{position:static; margin-bottom:12px;}
+    .module-nav{flex-direction:row; overflow-x:auto; gap:6px; padding-bottom:8px;}
+    .module-nav .item{flex:none; border-left:none; border-bottom:2px solid transparent; white-space:nowrap;}
+    .module-nav .item.active{border-left:none; border-bottom-color:var(--lime);}
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-tag">PREVIEW ONLY — visual concept, not the locked Squarespace build method</div>
+
+<div class="course-header">
+  <div class="course-header-inner">
+    <span class="course-title">Just Truck It Dispatch Academy · <b>Module 01 of 15</b></span>
+    <div class="progress-dots" id="progressDots"></div>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <h4>Course Modules</h4>
+    <nav class="module-nav" id="moduleNav"></nav>
+  </aside>
+
+  <main class="lesson">
+    <span class="mod-eyebrow">Module 01</span>
+    <h2 class="mod-title">Introduction to Freight Dispatching</h2>
+    <p class="lesson-intro">This module introduces what freight dispatching is, what a dispatcher does day to day, and how the dispatch process fits together — from the first load search to getting paid.</p>
+
+    <section class="lesson-section">
+      <h3>What You'll Learn</h3>
+      <div class="checklist" id="checklist">
+        <div class="check-item"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">What freight dispatching is</span></div>
+        <div class="check-item"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">What a dispatcher does every day</span></div>
+        <div class="check-item"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">The difference between a dispatcher and a freight broker</span></div>
+        <div class="check-item"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">How dispatchers get paid</span></div>
+        <div class="check-item"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></span><span class="label">The complete load cycle</span></div>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h3>The Lesson</h3>
+
+      <div class="sub-block">
+        <h4>What Is Freight Dispatching?</h4>
+        <p>Freight dispatching is the administrative and operational support provided to a motor carrier. A dispatcher helps the carrier locate freight, reviews load opportunities, communicates with brokers and shippers, assists with rate negotiation when authorized, sends load information to drivers, follows active loads, organizes paperwork, and helps plan the truck's next move.</p>
+      </div>
+      <div class="sub-block">
+        <h4>Who's In Charge?</h4>
+        <p>The dispatcher works for the carrier — not the broker. The carrier remains responsible for the truck, driver, safety, legal compliance, operating authority, insurance, and the final decision to accept or reject a load.</p>
+      </div>
+      <div class="sub-block">
+        <h4>How Dispatchers Get Paid</h4>
+        <p>A dispatcher may be paid a percentage of the loads they dispatch or a flat fee. In this course, the example business uses a 10% dispatch fee. It's important to understand that gross load revenue is not the same as carrier profit — the carrier still has fuel, insurance, truck payments, maintenance, payroll, taxes, tolls, and other operating expenses to cover.</p>
+      </div>
+      <div class="sub-block">
+        <h4>What Good Dispatching Looks Like</h4>
+        <p>Your job as a dispatcher isn't simply to find the highest number on the load board. Your job is to help the carrier make informed decisions. Before you search for a load, you need to know: where the truck is, when it will be empty, what equipment it has, where the carrier wants to go, how much deadhead is acceptable, and what the carrier considers an acceptable rate.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h3>Key Takeaways</h3>
+      <ul class="takeaway-list">
+        <li>A dispatcher supports the carrier — they don't replace the broker or make final load decisions.</li>
+        <li>Carriers are responsible for the truck, driver, safety, compliance, authority, insurance, and the final call on every load.</li>
+        <li>Dispatch fees are commonly a percentage of the load (10% in this course's example) or a flat fee.</li>
+        <li>Gross load revenue is not the same as carrier profit.</li>
+        <li>Good dispatching starts with knowing the truck's location, availability, equipment, and the carrier's preferences before searching for a load.</li>
+      </ul>
+    </section>
+
+    <section class="lesson-section">
+      <h3>Real-World Application</h3>
+      <div class="callout">
+        <p>Imagine a carrier calls you and says, "Find me something good." Before you open a load board, you'd want to know: Where is the truck right now, and when will it be empty? What equipment does it have? Where does the carrier want to head next? How much deadhead are they willing to run? And what would they consider a fair rate? Only once you have those answers are you ready to start searching.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h3>Put It Into Practice</h3>
+      <div class="practice-box">
+        <ol>
+          <li>In your own words, explain five things a dispatcher is responsible for.</li>
+          <li>Write a short answer explaining why the carrier — not the dispatcher — should make the final decision on every load.</li>
+          <li>Write out the complete load cycle, in order: Search → Evaluate → Broker Call → Negotiate → Carrier Approval → Rate Confirmation → Pickup → Delivery → POD → Invoice → Reload</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h3>Check Your Understanding</h3>
+      <div class="cyu-list">
+        <div class="cyu-item"><span class="qnum">01</span><p>What could go wrong in this part of the dispatch process?</p></div>
+        <div class="cyu-item"><span class="qnum">02</span><p>What information would you verify before moving forward?</p></div>
+        <div class="cyu-item"><span class="qnum">03</span><p>Who has final decision-making authority on a load?</p></div>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h3>Self-Check</h3>
+      <div class="selfcheck-box">
+        <p>Before moving on, try explaining the complete load cycle out loud, in your own words, without looking back at the lesson. If you get stuck, review the lesson before continuing to Module 02.</p>
+        <button class="reveal-btn" id="revealBtn">Write It Out (Optional)</button>
+        <div class="reflection-area" id="reflectionArea">
+          <textarea placeholder="Type the load cycle from memory here..."></textarea>
+          <div class="reflection-note">This space is just for your own use — nothing here is graded or submitted.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="complete-box">
+      <h3>Module Complete</h3>
+      <p>You've completed Module 01. Continue to Module 02 →</p>
+      <button class="continue-btn">Continue to Module 02 →</button>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Progress dots (top bar) — 15 modules, module 1 current
+  const dotsWrap = document.getElementById('progressDots');
+  for (let i = 1; i <= 15; i++) {
+    const d = document.createElement('span');
+    d.className = 'dot' + (i === 1 ? ' current' : '');
+    dotsWrap.appendChild(d);
+  }
+
+  // Sidebar module nav — module 1 active, rest shown as locked/upcoming (visual only)
+  const modules = [
+    "Introduction to Freight Dispatching","Understanding the Trucking Industry","Trucks, Trailers & Equipment",
+    "Carrier Onboarding & Required Documents","Load Boards & Finding Loads","Rate Per Mile & Load Calculations",
+    "Calling Freight Brokers","Rate Negotiation","Booking the Load & Rate Confirmations","Managing an Active Load",
+    "BOL, Delivery & POD","Factoring, Invoicing & Payments","Reefer, Flatbed, Box Truck & Hotshot Dispatching",
+    "Building a Carrier's Week & Lane Planning","Starting & Operating a Dispatch Business"
+  ];
+  const nav = document.getElementById('moduleNav');
+  modules.forEach((title, i) => {
+    const item = document.createElement('div');
+    item.className = 'item' + (i === 0 ? ' active' : '');
+    item.innerHTML = `<span class="num">${String(i+1).padStart(2,'0')}</span><span>${title}</span>` + (i > 0 ? '<span class="lock">🔒</span>' : '');
+    nav.appendChild(item);
+  });
+
+  // What You'll Learn — clickable checklist (visual only, in-memory state)
+  document.querySelectorAll('.check-item').forEach(item => {
+    item.addEventListener('click', () => item.classList.toggle('checked'));
+  });
+
+  // Self-check reveal
+  document.getElementById('revealBtn').addEventListener('click', () => {
+    document.getElementById('reflectionArea').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

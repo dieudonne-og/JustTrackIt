@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just Truck It Dispatch Academy — Page Mockup v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0B0D0C; --charcoal:#16181A; --charcoal-2:#1E2123;
+    --lime:#C6FF3D; --lime-dim:#9FD400; --white:#F6F6F2;
+    --steel:#8B918C; --steel-dark:#4C534E;
+    --display:'Oswald',sans-serif; --body:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body); background:var(--black); color:var(--white); line-height:1.5; -webkit-font-smoothing:antialiased;}
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--lime); display:inline-block; margin-bottom:16px;}
+  h1,h2,h3{font-family:var(--display); font-weight:700; text-transform:uppercase; letter-spacing:.01em; line-height:1.05;}
+  h1{font-size:clamp(34px,4.6vw,58px);}
+  h2{font-size:clamp(28px,3.6vw,42px);}
+  h3{font-size:19px; letter-spacing:.02em;}
+  p{color:var(--steel); font-size:16px; max-width:60ch;}
+  .section{padding:88px 8vw;}
+  .section-inner{max-width:1240px; margin:0 auto;}
+  .lane-divider{height:2px; width:100%; background-image:repeating-linear-gradient(90deg,var(--lime) 0 28px, transparent 28px 52px); opacity:.55;}
+
+  .btn{display:inline-flex; align-items:center; justify-content:center; font-family:var(--body); font-weight:700; font-size:14.5px; letter-spacing:.03em; text-transform:uppercase; padding:16px 30px; border-radius:2px; cursor:pointer; transition:transform .15s ease, background .15s ease; border:2px solid transparent;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--lime); color:var(--black);}
+  .btn-primary:hover{background:var(--lime-dim);}
+  .btn-outline{border-color:var(--white); color:var(--white); background:transparent;}
+  .btn-outline:hover{border-color:var(--lime); color:var(--lime);}
+  .btn-outline-dark{border:2px solid var(--black); color:var(--black); background:transparent;}
+  .btn-outline-dark:hover{background:var(--black); color:var(--lime);}
+
+  header{position:sticky; top:0; z-index:50; background:rgba(11,13,12,.94); backdrop-filter:blur(6px); border-bottom:2px solid var(--lime);}
+  .nav-wrap{max-width:1320px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:18px 6vw;}
+  .logo{font-family:var(--display); font-weight:700; font-size:20px; letter-spacing:.02em; line-height:1;}
+  .logo span{display:block; color:var(--lime); font-size:11px; letter-spacing:.22em; font-family:var(--mono); font-weight:500; margin-top:3px;}
+  nav.main-nav ul{display:flex; gap:40px;}
+  nav.main-nav a{font-size:13.5px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--white); opacity:.8;}
+  nav.main-nav a:hover{opacity:1; color:var(--lime);}
+  nav.main-nav a.active{opacity:1; color:var(--lime);}
+  .header-right{display:flex; align-items:center; gap:26px;}
+  .phone{font-family:var(--mono); font-size:13.5px; color:var(--steel);}
+  .hamburger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none;}
+  .hamburger span{width:26px; height:2px; background:var(--white);}
+
+  /* HERO */
+  .hero{padding:92px 8vw 0; background:radial-gradient(ellipse at 85% -10%, rgba(198,255,61,.07), transparent 55%), var(--black);}
+  .hero-inner{max-width:1240px; margin:0 auto; padding-bottom:52px;}
+  .academy-badge{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--lime); padding:6px 12px; margin-bottom:20px;}
+  .academy-badge .sq{width:8px; height:8px; background:var(--lime);}
+  .academy-badge span{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--lime); text-transform:uppercase;}
+  .hero h1{max-width:22ch; margin-bottom:14px;}
+  .hero .subline{font-family:var(--mono); font-size:14px; letter-spacing:.03em; color:var(--steel); text-transform:uppercase; margin-bottom:22px; display:block;}
+  .hero p{font-size:17px; max-width:58ch; margin-bottom:32px;}
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:52px;}
+
+  .stat-strip{background:var(--charcoal); border-top:1px solid var(--charcoal-2); border-bottom:1px solid var(--charcoal-2);}
+  .stat-grid{max-width:1240px; margin:0 auto; padding:34px 8vw; display:grid; grid-template-columns:repeat(4,1fr); gap:28px;}
+  .stat-item{text-align:left;}
+  .stat-item .num{font-family:var(--display); font-size:28px; color:var(--lime); display:block; margin-bottom:4px;}
+  .stat-item .label{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--steel);}
+
+  /* generic dark icon grid (who/what/practical) */
+  .icon-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:44px; background:var(--charcoal-2);}
+  .icon-grid.cols-2{grid-template-columns:repeat(2,1fr);}
+  .icon-item{background:var(--charcoal); padding:34px 30px;}
+  .icon-item .icon{width:34px; height:34px; margin-bottom:16px;}
+  .icon-item .icon svg{stroke:var(--lime); width:100%; height:100%;}
+  .icon-item h3{font-size:16px; margin-bottom:8px;}
+  .icon-item p{font-size:13.5px;}
+  .dark-bg{background:var(--black);}
+  .icon-grid.on-black{background:var(--charcoal-2);}
+  .icon-grid.on-black .icon-item{background:var(--black);}
+
+  /* light section */
+  .section-light{background:var(--white); color:var(--black);}
+  .section-light h2{color:var(--black);}
+  .section-light p{color:#4A4E4B;}
+
+  /* curriculum accordion */
+  .curriculum-list{margin-top:40px; border-top:1px solid #DDDCD4;}
+  .curriculum-item{border-bottom:1px solid #DDDCD4;}
+  .curriculum-item summary{list-style:none; cursor:pointer; display:flex; align-items:center; gap:18px; padding:22px 4px;}
+  .curriculum-item summary::-webkit-details-marker{display:none;}
+  .mod-num{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--black); background:var(--lime); padding:5px 10px; flex:none;}
+  .mod-title{font-family:var(--display); font-size:16.5px; text-transform:none; color:var(--black); font-weight:600; flex:1;}
+  .curriculum-item summary .plus{font-family:var(--mono); font-size:20px; color:var(--black); transition:transform .15s ease; flex:none;}
+  .curriculum-item[open] summary .plus{transform:rotate(45deg);}
+  .curriculum-answer{padding:0 4px 22px 62px; max-width:70ch;}
+  .curriculum-answer p{font-size:14.5px; color:#4A4E4B;}
+
+  /* online/in-person cards */
+  .path-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:44px;}
+  .path-card{background:var(--charcoal-2); border-top:3px solid var(--lime); padding:40px 36px;}
+  .path-card .tag{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--steel); text-transform:uppercase; margin-bottom:14px; display:block;}
+  .path-card h3{margin-bottom:14px; font-size:22px;}
+  .path-card p{margin-bottom:18px; color:var(--steel);}
+  .tba-chip{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--lime); border:1px dashed var(--lime); padding:8px 14px; margin-bottom:10px;}
+
+  /* pricing */
+  .price-stack{display:flex; flex-direction:column; gap:16px; margin-top:44px; max-width:560px;}
+  .price-card{background:var(--charcoal-2); border:1px solid var(--charcoal-2); border-left:4px solid var(--lime); padding:24px 26px;}
+  .price-card .row{display:flex; justify-content:space-between; align-items:center;}
+  .price-card .amount{font-family:var(--display); font-size:30px; color:var(--lime);}
+  .price-card .label{font-size:13px; color:var(--white); text-transform:uppercase; letter-spacing:.04em; font-weight:600;}
+  .price-card .sub{font-size:12.5px; color:var(--steel); margin-top:6px;}
+  .price-note{font-size:11.5px; color:var(--steel-dark); margin-top:10px; font-family:var(--mono);}
+  .payment-clarify{margin-top:32px; display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .clarify-box{border:1px solid var(--charcoal-2); padding:22px 24px;}
+  .clarify-box h4{font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--lime); margin-bottom:10px;}
+  .clarify-box p{font-size:14px;}
+
+  /* certificate */
+  .cert-wrap{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; margin-top:40px;}
+  .cert-card{border:1px solid var(--charcoal-2); padding:8px; background:var(--charcoal-2);}
+  .cert-inner{border:1px dashed var(--lime); padding:44px 30px; text-align:center;}
+  .cert-inner .cert-eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; color:var(--lime); text-transform:uppercase; margin-bottom:18px;}
+  .cert-inner h3{font-size:22px; margin-bottom:10px; color:var(--white);}
+  .cert-inner .cert-sub{font-family:var(--mono); font-size:11px; color:var(--steel); letter-spacing:.05em;}
+  .cert-inner .line{width:60%; height:1px; background:var(--charcoal-2); margin:22px auto;}
+  .cert-disclaimer{font-size:12.5px; color:var(--steel-dark); margin-top:16px;}
+
+  /* disclosures */
+  .disclosure-box{border:1px solid #DDDCD4; padding:32px 34px; margin-top:36px;}
+  .disclosure-box ul{display:flex; flex-direction:column; gap:12px;}
+  .disclosure-box li{font-size:14px; color:#4A4E4B; padding-left:18px; position:relative;}
+  .disclosure-box li::before{content:"—"; position:absolute; left:0; color:#9A9F98;}
+
+  /* agreement */
+  .agreement-row{display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-top:30px; padding:26px 30px; background:var(--charcoal-2); border-left:4px solid var(--lime);}
+  .agreement-row p{color:var(--steel); font-size:14.5px; max-width:52ch;}
+
+  /* final cta */
+  .final-cta{background:var(--lime); color:var(--black); text-align:center; padding:96px 8vw;}
+  .final-cta h2{color:var(--black); margin-bottom:16px;}
+  .final-cta p{color:#2b2e2c; margin:0 auto 30px; font-size:17px;}
+  .final-cta-ctas{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+
+  /* FAQ (shared pattern) */
+  .faq-list{margin-top:40px; border-top:1px solid #DDDCD4;}
+  .faq-item{border-bottom:1px solid #DDDCD4;}
+  .faq-item summary{list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; padding:24px 4px; font-family:var(--display); font-size:17px; text-transform:none; color:var(--black); letter-spacing:.005em; font-weight:600;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary .plus{font-family:var(--mono); font-size:20px; color:var(--black); transition:transform .15s ease;}
+  .faq-item[open] summary .plus{transform:rotate(45deg);}
+  .faq-answer{padding:0 4px 26px; max-width:70ch;}
+  .faq-answer p{font-size:15px; color:#4A4E4B;}
+
+  /* footer */
+  footer{background:var(--black); padding:80px 8vw 30px; border-top:1px solid var(--charcoal-2);}
+  .footer-grid{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:50px;}
+  .footer-brand .logo{margin-bottom:14px;}
+  .footer-brand p{font-size:14px; max-width:30ch;}
+  .footer-col h4{font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--lime); text-transform:uppercase; margin-bottom:18px;}
+  .footer-col ul li{margin-bottom:12px;}
+  .footer-col a{font-size:14px; color:var(--steel);}
+  .footer-col a:hover{color:var(--white);}
+  .footer-bottom{max-width:1240px; margin:0 auto; padding-top:26px; border-top:1px solid var(--charcoal-2); display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:12.5px; color:var(--steel-dark);}
+
+  @media (max-width:900px){
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .icon-grid{grid-template-columns:repeat(2,1fr);}
+    .path-grid{grid-template-columns:1fr;}
+    .payment-clarify{grid-template-columns:1fr;}
+    .cert-wrap{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr; row-gap:36px;}
+  }
+  @media (max-width:640px){
+    .section{padding:60px 6vw;}
+    nav.main-nav, .phone{display:none;}
+    .hamburger{display:flex;}
+    .hero{padding:52px 6vw 0;}
+    .hero-ctas .btn{width:100%;}
+    .stat-grid{grid-template-columns:1fr 1fr; padding:28px 6vw;}
+    .icon-grid{grid-template-columns:1fr;}
+    .curriculum-answer{padding-left:4px;}
+    .footer-grid{grid-template-columns:1fr;}
+    .final-cta-ctas{flex-direction:column;}
+    .final-cta-ctas .btn{width:100%;}
+    .agreement-row{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo">JUST TRUCK IT<span>DISPATCHING</span></div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Dispatch Services</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#" class="active">Dispatch Academy</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-right">
+      <span class="phone">912-546-1923</span>
+      <a href="#enroll" class="btn btn-primary" style="padding:12px 22px; font-size:13px;">Enroll Now</a>
+    </div>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="academy-badge"><span class="sq"></span><span>Just Truck It Dispatch Academy</span></div>
+    <h1>Learn The Business.<br>Dispatch With Confidence.</h1>
+    <span class="subline">Online Beginner Freight Dispatcher Course · 15 Modules</span>
+    <p>A structured, beginner-friendly training program you complete online — covering the practical process of freight dispatching, from industry fundamentals through load management and dispatch-business operations.</p>
+    <div class="hero-ctas">
+      <a href="#curriculum" class="btn btn-outline">View The Curriculum</a>
+      <a href="#enroll" class="btn btn-primary">Enroll Now</a>
+    </div>
+  </div>
+  <div class="stat-strip">
+    <div class="stat-grid">
+      <div class="stat-item"><span class="num">15</span><span class="label">Training Modules</span></div>
+      <div class="stat-item"><span class="num">45</span><span class="label">Question Final Assessment</span></div>
+      <div class="stat-item"><span class="num">80%</span><span class="label">Passing Score</span></div>
+      <div class="stat-item"><span class="num">✓</span><span class="label">Certificate of Completion</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO THIS PROGRAM IS FOR -->
+<section class="section">
+  <div class="section-inner">
+    <span class="eyebrow">Who This Program Is For</span>
+    <h2>Built For People New To Dispatching</h2>
+    <div class="icon-grid cols-2">
+      <div class="icon-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 20V4M12 4l-6 6M12 4l6 6"/></svg></div>
+        <h3>Beginners</h3>
+        <p>Learning freight dispatching from the ground up through a structured beginner course.</p>
+      </div>
+      <div class="icon-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg></div>
+        <h3>Aspiring Dispatchers</h3>
+        <p>Interested in becoming an independent freight dispatcher.</p>
+      </div>
+      <div class="icon-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M6 3h9l5 5v13H6z"/><path d="M9 12h6M9 16h6"/></svg></div>
+        <h3>Future Business Owners</h3>
+        <p>Interested in starting and operating their own dispatch business.</p>
+      </div>
+      <div class="icon-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 6l2 13h12l2-13"/><path d="M9 10v5M15 10v5"/></svg></div>
+        <h3>Curious Learners</h3>
+        <p>Wanting a structured understanding of how carrier dispatch operations work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT STUDENTS WILL LEARN -->
+<section class="section whatwedo" style="background:var(--charcoal);">
+  <div class="section-inner">
+    <span class="eyebrow">What You'll Learn</span>
+    <h2>A Practical Foundation In Freight Dispatching</h2>
+    <div class="icon-grid on-black">
+      <div class="icon-item"><h3>Dispatching Fundamentals</h3><p>Core concepts behind the role of a freight dispatcher.</p></div>
+      <div class="icon-item"><h3>Trucking Industry &amp; Equipment</h3><p>How the industry works and common truck/trailer types.</p></div>
+      <div class="icon-item"><h3>Carrier Onboarding</h3><p>What's involved in setting up a carrier profile.</p></div>
+      <div class="icon-item"><h3>Load Boards &amp; Load Searching</h3><p>How dispatchers find available loads.</p></div>
+      <div class="icon-item"><h3>Rate-Per-Mile Calculations</h3><p>How load and rate calculations work.</p></div>
+      <div class="icon-item"><h3>Broker Communication &amp; Negotiation</h3><p>Speaking with brokers and negotiating rates.</p></div>
+      <div class="icon-item"><h3>Active-Load Management</h3><p>Booking, tracking, and documenting a load in progress.</p></div>
+      <div class="icon-item"><h3>Lane Planning &amp; Starting A Business</h3><p>Planning a carrier's week and operating a dispatch business.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLETE CURRICULUM -->
+<section class="section section-light" id="curriculum">
+  <div class="section-inner">
+    <span class="eyebrow" style="color:#6b8a00;">Complete Curriculum</span>
+    <h2>15-Module Beginner Freight Dispatcher Course</h2>
+    <div class="curriculum-list">
+      <details class="curriculum-item">
+        <summary><span class="mod-num">01</span><span class="mod-title">Introduction to Freight Dispatching</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>An overview of what a freight dispatcher does and how dispatching fits into the trucking industry.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">02</span><span class="mod-title">Understanding the Trucking Industry</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>A look at the roles, terminology, and structure of the trucking industry.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">03</span><span class="mod-title">Trucks, Trailers &amp; Equipment</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>An introduction to common truck and trailer types used in freight transportation.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">04</span><span class="mod-title">Carrier Onboarding &amp; Required Documents</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>What's involved in setting up a carrier profile and the documents typically required.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">05</span><span class="mod-title">Load Boards &amp; Finding Loads</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>How load boards work and how dispatchers search for available loads.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">06</span><span class="mod-title">Rate Per Mile &amp; Load Calculations</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>How rate-per-mile and load-related calculations are used in dispatching.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">07</span><span class="mod-title">Calling Freight Brokers</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>How dispatchers communicate with freight brokers about available loads.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">08</span><span class="mod-title">Rate Negotiation</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>Approaches to negotiating rates with brokers on a carrier's behalf.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">09</span><span class="mod-title">Booking the Load &amp; Rate Confirmations</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>What happens when a load is booked and how rate confirmations are handled.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">10</span><span class="mod-title">Managing an Active Load</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>What's involved in tracking and managing a load once it's in progress.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">11</span><span class="mod-title">BOL, Delivery &amp; POD</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>An introduction to bills of lading, delivery, and proof-of-delivery documentation.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">12</span><span class="mod-title">Factoring, Invoicing &amp; Payments</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>An overview of factoring, invoicing, and how carriers are typically paid.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">13</span><span class="mod-title">Reefer, Flatbed, Box Truck &amp; Hotshot Dispatching</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>Dispatching considerations specific to reefer, flatbed, box truck, and hotshot equipment.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">14</span><span class="mod-title">Building a Carrier's Week &amp; Lane Planning</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>How dispatchers help plan a carrier's week and preferred lanes.</p></div>
+      </details>
+      <details class="curriculum-item">
+        <summary><span class="mod-num">15</span><span class="mod-title">Starting &amp; Operating a Dispatch Business</span><span class="plus">+</span></summary>
+        <div class="curriculum-answer"><p>An introduction to what's involved in starting and operating a dispatch business.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICAL TRAINING EXPERIENCE -->
+<section class="section" style="background:var(--charcoal);">
+  <div class="section-inner">
+    <span class="eyebrow">How You'll Learn</span>
+    <h2>Built To Be Practical, Not Just Theoretical</h2>
+    <div class="icon-grid on-black">
+      <div class="icon-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M6 3h9l5 5v13H6z"/><path d="M9 12h6M9 16h6"/></svg></div>
+        <h3>Instructional Lessons</h3>
+        <p>Structured lessons that walk through each module's core concepts.</p>
+      </div>
+      <div class="icon-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Practical Exercises</h3>
+        <p>Hands-on exercises designed to apply what you're learning.</p>
+      </div>
+      <div class="icon-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4l4 1 2 5-3 2c1 3 3 5 6 6l2-3 5 2 1 4c-6 1-11-1-14-4S3 10 4 4z"/></svg></div>
+        <h3>Scenario-Based Application</h3>
+        <p>Real-world dispatch scenarios to practice applying course concepts.</p>
+      </div>
+      <div class="icon-item">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M5 8l7-5 7 5M5 16l7 5 7-5"/></svg></div>
+        <h3>Student Notes &amp; Work Areas</h3>
+        <p>Space to work through exercises and track your own notes as you go.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lane-divider"></div>
+
+<!-- TUITION & ENROLLMENT -->
+<section class="section" style="background:var(--charcoal);" id="enroll">
+  <div class="section-inner">
+    <span class="eyebrow">Online Freight Dispatcher Training</span>
+    <h2>$350 Total Tuition</h2>
+    <div class="price-stack">
+      <div class="price-card">
+        <div class="row"><span class="label">Total Tuition</span><span class="amount">$350</span></div>
+        <div class="sub">Course access is provided after tuition is paid in full.</div>
+      </div>
+    </div>
+    <div class="payment-clarify" style="grid-template-columns:1fr; max-width:560px;">
+      <div class="clarify-box">
+        <h4>Online Access</h4>
+        <p>This is an online training program. Course access is provided once the full $350 tuition has been paid.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL ASSESSMENT -->
+<section class="section">
+  <div class="section-inner">
+    <span class="eyebrow">Final Assessment</span>
+    <h2>45-Question Final Assessment</h2>
+    <p style="margin-bottom:36px;">The final assessment covers all 15 modules. A minimum score of 80% is required to satisfy the Academy's Certificate of Completion requirement.</p>
+    <div class="stat-grid" style="padding:0;">
+      <div class="stat-item"><span class="num">45</span><span class="label">Multiple-Choice Questions</span></div>
+      <div class="stat-item"><span class="num">15</span><span class="label">Modules Covered</span></div>
+      <div class="stat-item"><span class="num">80%</span><span class="label">Required To Pass</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATE OF COMPLETION -->
+<section class="section" style="background:var(--charcoal);">
+  <div class="section-inner">
+    <span class="eyebrow">Certificate of Completion</span>
+    <h2>Complete The Course. Earn Your Certificate.</h2>
+    <div class="cert-wrap">
+      <div>
+        <p>Students who meet the course completion requirements — including a passing score of 80% or higher on the final assessment — are eligible to receive a Just Truck It Dispatch Academy Certificate of Completion.</p>
+        <p class="cert-disclaimer">This certificate reflects completion of the Just Truck It Dispatch Academy program. It is not a professional license, government certification, college degree, or industry accreditation.</p>
+      </div>
+      <div class="cert-card">
+        <div class="cert-inner">
+          <div class="cert-eyebrow">Just Truck It Dispatch Academy</div>
+          <h3>Certificate of Completion</h3>
+          <div class="line"></div>
+          <div class="cert-sub">Beginner Freight Dispatcher Course · 15 Modules</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDENT ENROLLMENT AGREEMENT -->
+<section class="section">
+  <div class="section-inner">
+    <span class="eyebrow">Before You Enroll</span>
+    <h2>Review The Enrollment Agreement</h2>
+    <p>Enrollment is governed by the Just Truck It Dispatch Academy Student Enrollment Agreement. Please review the agreement before enrolling.</p>
+    <div class="agreement-row">
+      <p>Student Enrollment Agreement &amp; Registration Form</p>
+      <a href="#" class="btn btn-outline">Download Enrollment Agreement</a>
+    </div>
+  </div>
+</section>
+
+<div class="lane-divider"></div>
+
+<!-- DISCLOSURES -->
+<section class="section section-light">
+  <div class="section-inner">
+    <span class="eyebrow" style="color:#6b8a00;">Important Information</span>
+    <h2>Program Disclosures</h2>
+    <div class="disclosure-box">
+      <ul>
+        <li>This course is educational. Completion does not guarantee employment, business success, carrier clients, freight availability, load rates, contracts, or earnings.</li>
+        <li>Students are responsible for meeting applicable business requirements if starting their own dispatch business.</li>
+        <li>Course content is general education and is not individualized legal, tax, accounting, financial, insurance, or regulatory advice.</li>
+        <li>Academy materials are protected educational content and may not be copied, resold, uploaded, published, distributed, or shared without authorization.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMY FAQ -->
+<section class="section section-light">
+  <div class="section-inner">
+    <span class="eyebrow" style="color:#6b8a00;">FAQ</span>
+    <h2>Common Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Is this course beginner-friendly?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>Yes. The course is designed for students who are new to freight dispatching.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>How many modules are included?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>The course includes 15 modules covering the freight dispatching process.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Is there a final assessment?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>Yes. A 45-question final assessment covers all 15 modules.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What score do I need to pass?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>A minimum score of 80% is required to satisfy the Certificate of Completion requirement.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Do I receive a certificate?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>Students who meet the course completion requirements, including the required assessment score, are eligible to receive a Just Truck It Dispatch Academy Certificate of Completion.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Is this course offered online?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>Yes. This is an online training program. Course access is provided after tuition is paid in full.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>How much is tuition?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>Total tuition for the online course is $350. Course access is provided after tuition is paid in full.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Does the course guarantee employment or income?<span class="plus">+</span></summary>
+        <div class="faq-answer"><p>No. This is an educational program and does not guarantee employment, clients, freight, rates, contracts, or income.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Ready To Learn Freight Dispatching?</h2>
+  <p>Start building the practical knowledge behind the dispatch process.</p>
+  <div class="final-cta-ctas">
+    <a href="#enroll" class="btn btn-primary">Enroll Now</a>
+    <a href="#enroll" class="btn btn-outline-dark">View Enrollment Details</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">JUST TRUCK IT<span>DISPATCHING</span></div>
+      <p>You Haul It. We Handle It. Just Truck It.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Dispatch Services</h4>
+      <ul><li><a href="#">Dispatch Services</a></li><li><a href="#">Carrier Sign-Up</a></li><li><a href="#">Book a Consultation</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Dispatch Academy</h4>
+      <ul><li><a href="#curriculum">Curriculum</a></li><li><a href="#enroll">Enrollment</a></li><li><a href="#">Enrollment Agreement</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Just Truck It Dispatching. All rights reserved.</span>
+    <span>912-546-1923 · justtruckitdispatch@gmail.com</span>
+  </div>
+</footer>
+
+</body>
+</html>
