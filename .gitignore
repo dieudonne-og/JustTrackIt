@@ -11,5 +11,9 @@ IMG-20260907-WA0012.jpg
 IMG-20260907-WA0013.jpg
 
 # Internal planning/prep docs — local working material only, not part of the
-# repo pushed to the client/remote.
-docs/
+# repo pushed to the client/remote. Content deliverables that don't need
+# Squarespace access (Module 01 lesson, marketing-page copy) are pushed;
+# the plan/spec/brief-analysis stay local.
+docs/superpowers/plans/
+docs/superpowers/specs/
+docs/superpowers/content/client-brief-source-of-truth.md
