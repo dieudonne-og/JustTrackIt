@@ -133,7 +133,13 @@ Body: Enrollment is governed by the Just Truck It Dispatch Academy Student Enrol
 
 Row: Student Enrollment Agreement & Registration Form — Button: Download Enrollment Agreement (outline)
 
-> Note: no enrollment agreement document exists in this repo yet — flag to the client that this document needs to be supplied before this section can be built with a working download link.
+> **Placeholder until the client supplies the real document:** no enrollment
+> agreement file exists in this repo. Build this section now with the button
+> linking to a placeholder page/PDF reading "Enrollment agreement coming
+> soon — contact us at justtruckitdispatch@gmail.com for enrollment details."
+> Do not fabricate actual agreement terms (tuition refund policy, liability
+> language, etc.) — that's a legal document the client or their counsel must
+> author; swap the placeholder link the moment the real PDF arrives.
 
 ## Program Disclosures
 

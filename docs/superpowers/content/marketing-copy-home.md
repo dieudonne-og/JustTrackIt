@@ -7,14 +7,14 @@
 > decorative extras, not required functionality; use a native equivalent or drop
 > them per the plan's Non-Goals approach.
 >
-> **Discrepancy to flag for the client before building this section:** the
-> mockup's Dispatch Academy section shows two price cards — "Pay In Full $350"
-> and "Enrollment Deposit $100 / Remaining balance $250" with a note that the
-> deposit is non-refundable. This conflicts with the plan's Global Constraint
-> that "Tuition is $350 flat for all 15 modules — one purchase, not per-module."
-> Do not build the deposit-option card until the client confirms whether a
-> deposit/installment option is actually offered; if not, build only the "Pay In
-> Full $350" card.
+> **Resolved discrepancy:** the mockup's Dispatch Academy section shows two
+> price cards — "Pay In Full $350" and "Enrollment Deposit $100 / Remaining
+> balance $250." That conflicts with the plan's Global Constraint that "Tuition
+> is $350 flat for all 15 modules — one purchase, not per-module," so this file
+> follows the constraint: build only the "Pay In Full $350" card below, and
+> drop the deposit/installment card. If the client actually wants a deposit
+> option, that's a pricing-policy change to raise with them explicitly — this
+> is not a build decision to reverse silently later.
 
 ## Header / Nav
 
@@ -111,7 +111,7 @@ Topic tags: Load Searching, Load Boards, Rate Negotiation, Broker Communication,
 
 Button: Explore Dispatch Academy (primary)
 
-Price card(s): see discrepancy note above — confirm with client before building.
+Price card: Pay In Full — $350 (only card; deposit/installment card dropped per the resolved discrepancy above).
 
 ## FAQ
 
